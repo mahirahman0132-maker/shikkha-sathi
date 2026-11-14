@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>শিক্ষাসাথী: বাংলায় AI স্টাডি ও স্কিল সহায়ক</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7fb;--surface:#fff;--ink:#16181f;--muted:#5d6475;--line:#e3e6ef;--brand:#4f46e5;--brand2:#06b6d4;--brand-ink:#fff;--soft:#eef0ff;--ok:#059669;--warn:#d97706;--shadow:0 6px 24px rgba(40,50,110,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1017;--surface:#171a24;--ink:#eceef6;--muted:#9aa2b8;--line:#2a2f3f;--brand:#8b85ff;--brand2:#22d3ee;--brand-ink:#0e1017;--soft:#1f2340;--ok:#34d399;--warn:#fbbf24;--shadow:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1017;--surface:#171a24;--ink:#eceef6;--muted:#9aa2b8;--line:#2a2f3f;--brand:#8b85ff;--brand2:#22d3ee;--brand-ink:#0e1017;--soft:#1f2340;--ok:#34d399;--warn:#fbbf24;--shadow:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Hind Siliguri",system-ui,"Noto Sans Bengali","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 96px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem}
+.logo i{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:#fff;font-style:normal}
+.pill{font-size:.8rem;color:var(--muted);border:1px solid var(--line);padding:2px 10px;border-radius:99px}
+nav{max-width:860px;margin:0 auto;display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:1 0 auto;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;padding:8px 14px;border-radius:12px;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--soft);color:var(--brand)}
+nav button:focus-visible,.btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.hero{padding:28px 0 8px}
+.hero h1{margin:0 0 6px;font-size:clamp(1.6rem,5vw,2.3rem);line-height:1.3;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:18px;margin-top:16px}
+.btn{border:0;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font:inherit;font-weight:600;padding:10px 18px;border-radius:12px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn.ghost{background:var(--soft);color:var(--brand)}
+input,textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.row{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.88rem;padding:5px 12px;border-radius:99px;cursor:pointer}
+.chip:hover{border-color:var(--brand);color:var(--brand)}
+#chat{display:flex;flex-direction:column;gap:12px;min-height:220px;max-height:55vh;overflow-y:auto;padding:4px}
+.msg{max-width:88%;padding:10px 14px;border-radius:16px;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-bottom-right-radius:4px}
+.msg.ai{align-self:flex-start;background:var(--soft);border-bottom-left-radius:4px}
+.msg code{background:rgba(127,127,127,.2);padding:1px 6px;border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.msg pre{background:var(--bg);border:1px solid var(--line);padding:10px;border-radius:10px;overflow-x:auto;margin:8px 0}
+.compose{display:flex;gap:8px;margin-top:12px}.compose textarea{resize:none;height:48px}
+.step{display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.step input[type=checkbox]{width:22px;height:22px;margin-top:4px;accent-color:var(--brand);flex:none}
+.step h4{margin:0;font-size:1rem}.step p{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+.step.done h4{text-decoration:line-through;color:var(--muted)}
+.meta{font-size:.8rem;color:var(--brand);font-weight:600}
+.bartrack{height:12px;background:var(--soft);border-radius:99px;overflow:hidden}
+.barfill{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));border-radius:99px;transition:width .5s}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stat{background:var(--soft);border-radius:14px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.5rem;color:var(--brand)}.stat span{font-size:.8rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.res{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;transition:transform .15s,border-color .15s}
+.res:hover{transform:translateY(-2px);border-color:var(--brand)}
+.res b{display:block}.res small{color:var(--muted)}
+.res .tag{display:inline-block;font-size:.72rem;background:var(--soft);color:var(--brand);padding:1px 8px;border-radius:99px;margin-bottom:6px;font-weight:600}
+.note{color:var(--muted);font-size:.88rem}.err{color:var(--warn);font-size:.92rem;margin-top:10px}
+.empty{text-align:center;color:var(--muted);padding:24px 8px}
+section[hidden]{display:none}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:24px 0}
+.dots span{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:var(--muted);animation:b 1s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,80%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.lvl b{font-size:1.05rem}.quote{margin:6px 0 0;font-style:italic;color:var(--muted)}.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}.badge{text-align:center;padding:12px 6px;border-radius:14px;background:var(--soft);font-size:.82rem;font-weight:600}.badge span{display:block;font-size:1.8rem}.badge.off{opacity:.38;filter:grayscale(1)}.ring{width:220px;height:220px;border-radius:50%;background:conic-gradient(var(--brand) var(--p,0deg),var(--soft) 0);display:grid;place-items:center;margin:12px auto}.ring div{width:184px;height:184px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:2.4rem;font-weight:700}.opt{display:block;width:100%;text-align:left;margin-top:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;padding:10px 14px;border-radius:12px;cursor:pointer}.opt:hover:not(:disabled){border-color:var(--brand)}.opt:disabled{cursor:default}.opt.ok{border-color:var(--ok);background:rgba(5,150,105,.12)}.opt.bad{border-color:var(--warn);background:rgba(217,119,6,.12)}#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--brand);color:var(--brand-ink);padding:10px 18px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:20;max-width:90vw;text-align:center}#toast.on{opacity:1;transform:translate(-50%,0)}.cf{position:fixed;top:-30px;z-index:19;font-style:normal;font-size:1.5rem;pointer-events:none;animation:fall 1.8s ease-in forwards}@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.2}}@media (prefers-reduced-motion:reduce){.cf{display:none}}
+.goal{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:.88rem;font-weight:600}.goal #gTxt{white-space:nowrap}.fcard{min-height:140px;display:grid;place-items:center;text-align:center;font-size:1.3rem;font-weight:600;padding:18px;border-radius:16px;background:var(--soft);margin-top:10px;overflow-wrap:anywhere}#snd{padding:2px 10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar"><div class="logo"><i aria-hidden="true">শ</i>শিক্ষাসাথী</div><span class="pill" id="streakPill">🔥 ০ দিন</span></div>
+  <nav role="tablist" aria-label="প্রধান মেনু">
+    <button role="tab" id="t-tutor" aria-selected="true" data-tab="tutor">🧑‍🏫 AI টিউটর</button>
+    <button role="tab" id="t-road" aria-selected="false" data-tab="road">🗺️ রোডম্যাপ</button>
+    <button role="tab" id="t-prog" aria-selected="false" data-tab="prog">📈 প্রগ্রেস</button>
+    <button role="tab" id="t-res" aria-selected="false" data-tab="res">📚 ফ্রি রিসোর্স</button>
+    <button role='tab' id='t-focus' aria-selected='false' data-tab='focus'>⏱️ ফোকাস</button>
+    <button role='tab' id='t-quiz' aria-selected='false' data-tab='quiz'>🎯 কুইজ</button>
+    <button role='tab' id='t-cards' aria-selected='false' data-tab='cards'>🃏 কার্ড</button>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="hero"><h1>যা শিখতে চাও, বাংলায় শেখো</h1><p>প্রশ্ন করো, পরিকল্পনা বানাও, অগ্রগতি দেখো। সবকিছু এক জায়গায়, বিনামূল্যে।</p></div><div class='card lvl'><div style='display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap'><b id='lvName'></b><span class='note' id='lvXp'></span></div><div class='bartrack' style='margin:8px 0'><div class='barfill' id='lvFill'></div></div><div class='goal'><span id='gTxt'></span><div class='bartrack' style='flex:1'><div class='barfill' id='gFill'></div></div><button class='chip' id='snd' aria-label='শব্দ চালু বা বন্ধ'>🔊</button></div><p class='quote' id='quote'></p></div>
+
+  <section id="tutor" role="tabpanel" aria-labelledby="t-tutor">
+    <div class="card">
+      <div id="chat" aria-live="polite"><div class="msg ai">আসসালামু আলাইকুম! আমি তোমার AI টিউটর। পড়ার যেকোনো বিষয় বা কোডিংয়ের প্রশ্ন করো, আমি সহজ বাংলায় বুঝিয়ে দেব।</div></div>
+      <div class="chips" id="chips"></div>
+      <div class="compose"><textarea id="q" placeholder="তোমার প্রশ্ন লেখো…" aria-label="প্রশ্ন"></textarea><button class="btn" id="send">পাঠাও</button></div>
+      <p class="note">Enter চাপলে পাঠাবে, Shift+Enter চাপলে নতুন লাইন।</p>
+    </div>
+  </section>
+
+  <section id="road" role="tabpanel" aria-labelledby="t-road" hidden>
+    <div class="card">
+      <label for="goal">তুমি কী শিখতে চাও?</label>
+      <input id="goal" placeholder="যেমন: ওয়েব ডেভেলপমেন্ট, স্পোকেন ইংলিশ, গ্রাফিক ডিজাইন">
+      <div class="row">
+        <div><label for="level">বর্তমান স্তর</label><select id="level"><option>একদম নতুন</option><option>কিছুটা জানি</option><option>মাঝামাঝি</option></select></div>
+        <div><label for="hours">প্রতিদিন কত ঘণ্টা সময় দিতে পারবে?</label><select id="hours"><option>১ ঘণ্টা</option><option selected>২ ঘণ্টা</option><option>৩ ঘণ্টা</option><option>৪+ ঘণ্টা</option></select></div>
+      </div>
+      <div style="margin-top:16px"><button class="btn" id="gen">রোডম্যাপ বানাও ✨</button></div>
+      <div class="err" id="roadErr" role="alert"></div>
+    </div>
+    <div class="card" id="roadCard" hidden>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="margin:0" id="roadTitle"></h3><button class="btn ghost" id="reset">মুছে নতুন করো</button></div>
+      <div id="steps"></div>
+    </div>
+  </section>
+
+  <section id="prog" role="tabpanel" aria-labelledby="t-prog" hidden>
+    <div class="card">
+      <h3 style="margin:0 0 10px">তোমার অগ্রগতি</h3>
+      <div class="bartrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="pbar"><div class="barfill" id="pfill"></div></div>
+      <div class="stats"><div class="stat"><b id="sPct">০%</b><span>সম্পন্ন</span></div><div class="stat"><b id="sDone">০</b><span>ধাপ শেষ</span></div><div class="stat"><b id="sStreak">০</b><span>দিনের ধারা</span></div></div>
+      <p class="note" id="nextUp" style="margin-bottom:0"></p>
+    </div>
+    <div class="card"><h4 style='margin:0 0 8px'>🏅 তোমার ব্যাজ</h4><div id='badges' class='badges'></div></div><div class='card'><h4 style='margin:0 0 8px'>গত ৭ দিন</h4><div id="week" style="display:flex;gap:8px;justify-content:space-between"></div></div>
+  </section>
+
+  <section id="res" role="tabpanel" aria-labelledby="t-res" hidden>
+    <div class="grid" id="resGrid" style="margin-top:16px"></div>
+  </section>
+  <section id='focus' role='tabpanel' aria-labelledby='t-focus' hidden><div class='card' style='text-align:center'><h3 style='margin:0'>ফোকাস টাইমার</h3><p class='note'>মন দিয়ে পড়ো, প্রতিটি সেশন শেষ করলে ১৫ XP।</p><div class='ring' id='fRing'><div id='fTime'>২৫:০০</div></div><div style='max-width:220px;margin:0 auto 12px'><select id='fLen' aria-label='সময়'><option value='15'>১৫ মিনিট</option><option value='25' selected>২৫ মিনিট</option><option value='45'>৪৫ মিনিট</option></select></div><button class='btn' id='fGo'>চালু করো</button> <button class='btn ghost' id='fReset'>রিসেট</button><p class='note' id='fCount'></p></div></section><section id='quiz' role='tabpanel' aria-labelledby='t-quiz' hidden><div class='card'><label for='qTopic'>কোন বিষয়ে কুইজ দেবে?</label><input id='qTopic' placeholder='যেমন: HTML বেসিক, মুক্তিযুদ্ধ, Tense'><div style='margin-top:14px'><button class='btn' id='qGen'>কুইজ শুরু করো 🎯</button></div><p class='note' id='hearts'></p><div class='err' id='qErr' role='alert'></div></div><div class='card' id='qBox' hidden></div></section>
+  <section id='cards' role='tabpanel' aria-labelledby='t-cards' hidden><div class='card'><label for='cTopic'>কোন বিষয়ের কার্ড চাও?</label><input id='cTopic' placeholder='যেমন: ইংরেজি ভোকাবুলারি, HTML ট্যাগ, জীববিজ্ঞান'><div style='margin-top:14px'><button class='btn' id='cGen'>কার্ড বানাও 🃏</button></div><p class='note'>যে কার্ড ভুল হবে তা বারবার আসবে, যেটা জানো তা কয়েক দিন পর ফিরবে। প্রতি ৫টা কার্ড শেষ করলে একটা হার্ট ফিরে পাবে।</p><div class='err' id='cErr' role='alert'></div></div><div class='card' id='cBox' hidden></div></section>
+  <footer>শিক্ষাসাথী · তোমার শেখার পথের সঙ্গী</footer>
+</main>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var BN="০১২৩৪৫৬৭৮৯";
+function bn(n){return String(n).replace(/\d/g,function(d){return BN[d]})}
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---- Tabs ---- */
+var tabs=document.querySelectorAll("nav button");
+function show(id){
+  tabs.forEach(function(b){b.setAttribute("aria-selected",String(b.dataset.tab===id))});
+  document.querySelectorAll("main section").forEach(function(s){s.hidden=s.id!==id});
+  if(id==="prog")renderProg();
+}
+tabs.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.tab)})});
+
+/* ---- Claude sample (graceful absence) ---- */
+var samplePromise=null;
+function getSample(){
+  if(!samplePromise){samplePromise=(window.claude&&window.claude.use?window.claude.use("sample"):Promise.resolve(null)).catch(function(){return null})}
+  return samplePromise;
+}
+function errText(e){
+  if(e&&e.code==="not_granted")return "AI ব্যবহারের অনুমতি দেওয়া হয়নি। আবার চেষ্টা করলে অনুমতি চাইবে।";
+  if(e&&e.code==="rate_limited")return "একটু বেশি অনুরোধ হয়ে গেছে। কিছুক্ষণ পর আবার চেষ্টা করো।";
+  return "দুঃখিত, এখন উত্তর আনা যাচ্ছে না। একটু পরে আবার চেষ্টা করো।";
+}
+
+/* ---- Safe mini-markdown ---- */
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function md(t){
+  var parts=esc(t).split("```");
+  return parts.map(function(p,i){
+    if(i%2){return "<pre><code>"+p.replace(/^\w*\n/,"")+"</code></pre>"}
+    return p.replace(/`([^`\n]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/\n/g,"<br>");
+  }).join("");
+}
+
+/* ---- Tutor ---- */
+var history=[],busy=false;
+var starters=["ফটোসিনথেসিস সহজ করে বোঝাও","HTML আর CSS কী?","ইংরেজি Tense মনে রাখার উপায়","ফ্রিল্যান্সিং কীভাবে শুরু করব?"];
+starters.forEach(function(s){var c=document.createElement("button");c.className="chip";c.textContent=s;c.onclick=function(){$("#q").value=s;ask()};$("#chips").appendChild(c)});
+function addMsg(cls,html){var d=document.createElement("div");d.className="msg "+cls;d.innerHTML=html;$("#chat").appendChild(d);$("#chat").scrollTop=1e9;return d}
+async function ask(){
+  var q=$("#q").value.trim();if(!q||busy)return;
+  busy=true;$("#send").disabled=true;$("#q").value="";
+  addMsg("me",md(q));
+  var out=addMsg("ai",'<span class="dots"><span></span><span></span><span></span></span>');
+  var sample=await getSample();
+  if(!sample){out.textContent="AI টিউটর এই ভিউতে চালু নেই। Claude-এ পেজটি খুলে আবার চেষ্টা করো।";busy=false;$("#send").disabled=false;return}
+  history.push({role:"user",content:q});
+  var ctx=history.slice(-8);
+  var sys="তুমি 'শিক্ষাসাথী' নামের একজন ধৈর্যশীল বাংলা AI টিউটর। সহজ, স্পষ্ট বাংলায় উত্তর দাও এবং আন্তরিক, উৎসাহ দেওয়ার সুরে কথা বলো; ভুলকে শেখার সুযোগ হিসেবে দেখাও। প্রয়োজনে ছোট উদাহরণ দাও, কোডের জন্য কোড ব্লক ব্যবহার করো। শেষে একটি ছোট প্রশ্ন বা অনুশীলন দাও। উত্তর সংক্ষিপ্ত রাখো। নিচের কথোপকথন:\n"+ctx.map(function(m){return (m.role==="user"?"শিক্ষার্থী: ":"টিউটর: ")+m.content}).join("\n")+"\nটিউটর:";
+  try{
+    var r=await sample(sys,{cache:false,onText:function(o){out.innerHTML=md(o.text);$("#chat").scrollTop=1e9}});
+    out.innerHTML=md(r.text);addXP(5);history.push({role:"assistant",content:r.text});
+  }catch(e){out.textContent=errText(e);history.pop()}
+  busy=false;$("#send").disabled=false;
+}
+$("#send").onclick=ask;
+$("#q").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask()}});
+
+/* ---- Roadmap ---- */
+var plan=store.get("plan",null);
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function renderPlan(){
+  var c=$("#roadCard");
+  if(!plan){c.hidden=true;return}
+  c.hidden=false;$("#roadTitle").textContent=plan.title;
+  var box=$("#steps");box.textContent="";
+  plan.steps.forEach(function(s,i){
+    var d=document.createElement("div");d.className="step"+(s.done?" done":"");
+    var cb=document.createElement("input");cb.type="checkbox";cb.checked=!!s.done;cb.id="st"+i;cb.setAttribute("aria-label",s.title);
+    cb.onchange=function(){s.done=cb.checked;s.at=cb.checked?today():null;store.set("plan",plan);if(cb.checked&&!s.xp){s.xp=true;store.set('plan',plan);addXP(20,'শাবাশ! একটা ধাপ শেষ করলে',true)}else if(cb.checked)markActive();renderPlan();renderProg()};
+    var w=document.createElement("div");
+    var m=document.createElement("div");m.className="meta";m.textContent="ধাপ "+bn(i+1)+" · "+(s.duration||"");
+    var h=document.createElement("h4");h.textContent=s.title;
+    var p=document.createElement("p");p.textContent=s.detail||"";
+    w.append(m,h,p);d.append(cb,w);box.appendChild(d);
+  });
+}
+$("#gen").onclick=async function(){
+  var goal=$("#goal").value.trim(),err=$("#roadErr");err.textContent="";
+  if(!goal){err.textContent="আগে লেখো তুমি কী শিখতে চাও।";return}
+  var sample=await getSample();
+  if(!sample){err.textContent="AI এই ভিউতে চালু নেই। Claude-এ পেজটি খুলে চেষ্টা করো।";return}
+  var btn=$("#gen");btn.disabled=true;btn.textContent="বানাচ্ছি…";
+  var prompt="একজন বাংলাভাষী শিক্ষার্থীর জন্য '"+goal+"' শেখার ধাপে ধাপে রোডম্যাপ বানাও। তার স্তর: "+$("#level").value+"। প্রতিদিন সময়: "+$("#hours").value+"। ৮ থেকে ১০টি বাস্তবসম্মত ধাপ দাও। শুধু JSON ফেরত দাও, অন্য কিছু নয়, ফরম্যাট: {\"title\":\"রোডম্যাপের নাম\",\"steps\":[{\"title\":\"ধাপের নাম\",\"detail\":\"এক-দুই বাক্যে কী করতে হবে\",\"duration\":\"যেমন ২ সপ্তাহ\"}]}। সব লেখা বাংলায় হবে।";
+  try{
+    var j=await sample.json(prompt,{cache:false});
+    if(!j||!Array.isArray(j.steps)||!j.steps.length)throw new Error("bad");
+    plan={title:String(j.title||goal+" রোডম্যাপ"),created:today(),steps:j.steps.slice(0,12).map(function(s){return{title:String(s.title||"ধাপ"),detail:String(s.detail||""),duration:String(s.duration||""),done:false,at:null}})};
+    store.set("plan",plan);renderPlan();renderProg();
+  }catch(e){err.textContent=e&&e.code?errText(e):"রোডম্যাপ বানানো গেল না। আরেকবার চেষ্টা করো।"}
+  btn.disabled=false;btn.textContent="রোডম্যাপ বানাও ✨";
+};
+$("#reset").onclick=function(){if(confirm("বর্তমান রোডম্যাপ ও অগ্রগতি মুছে ফেলবে?")){plan=null;store.set("plan",null);renderPlan();renderProg()}};
+
+/* ---- Activity / streak ---- */
+function markActive(){var a=store.get("days",[]),t=today();if(a.indexOf(t)<0){a.push(t);store.set("days",a.slice(-60))}}
+function key(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function streak(){
+  var a=store.get("days",[]),n=0,d=new Date();
+  if(a.indexOf(key(d))<0)d.setDate(d.getDate()-1);
+  while(a.indexOf(key(d))>=0){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+function renderProg(){renderLevel();
+  var s=streak();$("#streakPill").textContent="🔥 "+bn(s)+" দিন";$("#sStreak").textContent=bn(s);
+  var total=plan?plan.steps.length:0,done=plan?plan.steps.filter(function(x){return x.done}).length:0,pct=total?Math.round(done/total*100):0;
+  $("#pfill").style.width=pct+"%";$("#pbar").setAttribute("aria-valuenow",pct);
+  $("#sPct").textContent=bn(pct)+"%";$("#sDone").textContent=bn(done)+"/"+bn(total);
+  var nx=plan&&plan.steps.find(function(x){return !x.done});
+  $("#nextUp").textContent=!plan?"রোডম্যাপ বানালে এখানে তোমার পরের লক্ষ্য দেখাবে।":nx?"পরের লক্ষ্য: "+nx.title:"অভিনন্দন! সব ধাপ শেষ। 🎉";
+  var wk=$("#week");wk.textContent="";var a=store.get("days",[]),names=["রবি","সোম","মঙ্গল","বুধ","বৃহ","শুক্র","শনি"];
+  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var on=a.indexOf(key(d))>=0;
+    var c=document.createElement("div");c.style.cssText="flex:1;text-align:center;font-size:.8rem;color:var(--muted)";
+    var dot=document.createElement("div");dot.style.cssText="height:34px;border-radius:10px;margin-bottom:4px;background:"+(on?"linear-gradient(135deg,var(--brand),var(--brand2))":"var(--soft)");
+    c.append(dot,document.createTextNode(names[d.getDay()]));wk.appendChild(c)}
+}
+
+/* ---- Resources ---- */
+var R=[["কোডিং","freeCodeCamp","ওয়েব ডেভেলপমেন্ট ও ডেটা সায়েন্সের পূর্ণ ফ্রি কোর্স","https://www.freecodecamp.org"],
+["কোডিং","CS50 (Harvard)","কম্পিউটার সায়েন্সের সেরা ফ্রি পরিচিতি কোর্স","https://cs50.harvard.edu"],
+["কোডিং","MDN Web Docs","HTML, CSS, JavaScript-এর নির্ভরযোগ্য ডকুমেন্টেশন","https://developer.mozilla.org"],
+["কোডিং","Programiz","শুরুর জন্য সহজ ভাষায় Python, C, Java টিউটোরিয়াল","https://www.programiz.com"],
+["একাডেমিক","Khan Academy","গণিত ও বিজ্ঞানের ভিডিও পাঠ ও অনুশীলন","https://www.khanacademy.org"],
+["বাংলা","10 Minute School","বাংলায় একাডেমিক ও স্কিল কোর্স","https://10minuteschool.com"],
+["ইংরেজি","BBC Learning English","শুনে ও পড়ে ইংরেজি শেখার ফ্রি পাঠ","https://www.bbc.co.uk/learningenglish"],
+["ডিজাইন","Canva Design School","গ্রাফিক ডিজাইনের বেসিক টিউটোরিয়াল","https://www.canva.com/designschool"]];
+R.forEach(function(r){
+  var a=document.createElement("a");a.className="res";a.href=r[3];a.target="_blank";a.rel="noopener noreferrer";
+  var t=document.createElement("span");t.className="tag";t.textContent=r[0];
+  var b=document.createElement("b");b.textContent=r[1];var s=document.createElement("small");s.textContent=r[2];
+  a.append(t,b,s);$("#resGrid").appendChild(a);
+});
+
+var QUOTES=['আজ যেটা কঠিন লাগছে, কাল সেটাই তোমার কাছে সহজ হয়ে যাবে।','ভুল করা মানে হেরে যাওয়া নয়, শেখার পথে এগিয়ে যাওয়া।','প্রতিদিন মাত্র ১% এগোলেও বছর শেষে তুমি অনেক দূর চলে যাবে।','শুরু করতে পারফেক্ট হওয়া লাগে না, শুরু করলেই এগোনো যায়।','তুমি যতটা ভাবো, তার চেয়ে অনেক বেশি পারো।','আজকের ২০ মিনিটের অনুশীলন কালকের আত্মবিশ্বাস।','ধারাবাহিকতা প্রতিভার চেয়েও শক্তিশালী।','যে শিখতে থামে না, সে কখনো পিছিয়ে পড়ে না।'];
+var tt=document.createElement('div');tt.id='toast';tt.setAttribute('role','status');document.body.appendChild(tt);
+function xp(){return store.get('xp',0)}
+function toast(t){tt.textContent=t;tt.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){tt.classList.remove('on')},2800)}
+function burst(){sfx('up');if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var e=['🎉','✨','⭐','🌟'];for(var i=0;i<26;i++){var p=document.createElement('i');p.className='cf';p.textContent=e[i%4];p.style.left=Math.random()*100+'vw';p.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(p);setTimeout(function(n){n.remove()},2400,p)}}
+function addXP(n,msg,fest){var dx=store.get('dxp',{d:'',v:0});if(dx.d!==today())dx={d:today(),v:0};var gb=dx.v<GOAL;dx.v+=n;store.set('dxp',dx);if(gb&&dx.v>=GOAL){setTimeout(function(){toast('🎯 আজকের লক্ষ্য পূরণ! দারুণ!');burst()},1200)}var b=Math.floor(xp()/100);store.set('xp',xp()+n);var a=Math.floor(xp()/100);markActive();renderLevel();if(a>b){toast('🚀 লেভেল আপ! তুমি এখন লেভেল '+bn(a+1)+'-এ');burst()}else if(msg){toast(msg+' · +'+bn(n)+' XP');if(fest)burst()}}
+function renderLevel(){var x=xp(),lv=Math.floor(x/100)+1,t=['নবীন শিক্ষার্থী','জ্ঞানান্বেষী','অধ্যবসায়ী','দক্ষ শিক্ষার্থী','মাস্টার'];$('#lvName').textContent='লেভেল '+bn(lv)+' · '+t[Math.min(lv-1,4)];$('#lvXp').textContent=bn(x%100)+'/১০০ XP';$('#lvFill').style.width=(x%100)+'%';goalDraw();renderBadges()}
+function renderBadges(){var b=$('#badges');if(!b)return;var pl=plan?plan.steps.filter(function(s){return s.done}).length:0;var all=!!(plan&&plan.steps.length&&pl===plan.steps.length);var def=[['🌱','প্রথম ধাপ',pl>=1],['🔥','৩ দিনের ধারা',streak()>=3],['⭐','১০০ XP',xp()>=100],['🧠','কুইজ মাস্টার',store.get('quizPerfect',false)],['⏱️','ফোকাস যোদ্ধা',store.get('focus',0)>=1],['🏆','রোডম্যাপ জয়',all]];b.textContent='';def.forEach(function(d){var e=document.createElement('div');e.className='badge'+(d[2]?'':' off');var s=document.createElement('span');s.textContent=d[0];e.append(s,document.createTextNode(d[1]));b.appendChild(e)})}
+var fT=null,fLen=1500,fLeft=1500;
+function fmt(s){return bn(('0'+Math.floor(s/60)).slice(-2))+':'+bn(('0'+s%60).slice(-2))}
+function fDraw(){$('#fTime').textContent=fmt(fLeft);$('#fRing').style.setProperty('--p',((1-fLeft/fLen)*360)+'deg');$('#fCount').textContent='এ পর্যন্ত '+bn(store.get('focus',0))+'টি সেশন শেষ করেছ'}
+$('#fGo').onclick=function(){var g=$('#fGo');if(fT){clearInterval(fT);fT=null;g.textContent='চালু করো';return}var end=Date.now()+fLeft*1000;g.textContent='বিরতি';fT=setInterval(function(){fLeft=Math.max(0,Math.round((end-Date.now())/1000));if(!fLeft){clearInterval(fT);fT=null;store.set('focus',store.get('focus',0)+1);fLeft=fLen;g.textContent='চালু করো';fDraw();addXP(15,'চমৎকার! ফোকাস সেশন শেষ',true);return}fDraw()},500)};
+$('#fReset').onclick=function(){clearInterval(fT);fT=null;fLeft=fLen;$('#fGo').textContent='চালু করো';fDraw()};
+$('#fLen').onchange=function(){if(fT)return;fLen=fLeft=(+this.value)*60;fDraw()};
+var Q=[],qi=0,qs=0;
+function qOk(x){return x&&x.t&&Array.isArray(x.o)&&x.o.length>=2&&Number.isInteger(x.a)&&x.a>=0&&x.a<x.o.length}
+function showQ(){var box=$('#qBox');box.hidden=false;box.textContent='';if(qi>=Q.length){var m=qs===Q.length?'অসাধারণ! পুরো নম্বর, তুমি দারুণ করছ 🏆':qs>=Math.ceil(Q.length/2)?'খুব ভালো! আরেকটু অনুশীলনেই পুরো নম্বর পাবে 💪':'ভুল থেকেই শেখা হয়। আবার চেষ্টা করলে নিশ্চয়ই ভালো হবে 🌱';var h=document.createElement('h3');h.textContent='তোমার স্কোর: '+bn(qs)+'/'+bn(Q.length);var p=document.createElement('p');p.textContent=m;box.append(h,p);if(qs===Q.length){store.set('quizPerfect',true);addXP(20,'পুরো নম্বর!',true)}else renderBadges();return}var x=Q[qi],meta=document.createElement('div');meta.className='meta';meta.textContent='প্রশ্ন '+bn(qi+1)+'/'+bn(Q.length);var h4=document.createElement('h4');h4.style.margin='4px 0';h4.textContent=x.t;box.append(meta,h4);var fb=document.createElement('p');fb.className='note';var nx=document.createElement('button');nx.className='btn';nx.hidden=true;nx.style.marginTop='12px';nx.textContent=qi+1<Q.length?'পরের প্রশ্ন':'ফলাফল দেখো';nx.onclick=function(){qi++;if(hearts()<=0&&qi<Q.length){outHearts()}else showQ()};var btns=[];x.o.forEach(function(o,i){var b=document.createElement('button');b.className='opt';b.textContent=String(o);b.onclick=function(){btns.forEach(function(k,j){k.disabled=true;if(j===x.a)k.classList.add('ok')});if(i===x.a){qs++;sfx('ok');addXP(10);fb.textContent='✅ সঠিক! '+(x.e||'')}else{b.classList.add('bad');sfx('no');loseHeart();fb.textContent='🤔 এবার হয়নি, তবে এভাবেই শেখা হয়। '+(x.e||'')}nx.hidden=false};btns.push(b);box.appendChild(b)});box.append(fb,nx)}
+$('#qGen').onclick=async function(){var t=$('#qTopic').value.trim(),e=$('#qErr');e.textContent='';if(hearts()<=0){e.textContent='💔 আজকের হার্ট শেষ। ফ্ল্যাশকার্ড রিভিউ করলে হার্ট ফিরে পাবে, নাহলে কাল আবার ৫টা হার্ট পাবে।';return}if(!t){e.textContent='আগে বিষয়টা লেখো।';return}var sample=await getSample();if(!sample){e.textContent='AI এই ভিউতে চালু নেই। Claude-এ পেজটি খুলে চেষ্টা করো।';return}var b=$('#qGen');b.disabled=true;b.textContent='প্রশ্ন বানাচ্ছি…';try{var ex=JSON.stringify({q:[{t:'প্রশ্ন',o:['ক','খ','গ','ঘ'],a:0,e:'এক বাক্যে ব্যাখ্যা'}]});var j=await sample.json(t+' বিষয়ে একজন বাংলাভাষী শিক্ষার্থীর জন্য ৫টি সহজ থেকে মাঝারি বহুনির্বাচনি প্রশ্ন বানাও। শুধু JSON ফেরত দাও, এই ফরম্যাটে: '+ex+' । a হলো সঠিক অপশনের সূচক (০ থেকে ৩)। সব লেখা বাংলায়।',{cache:false});Q=((j&&j.q)||[]).map(function(x){if(x)x.a=Number(x.a);return x}).filter(qOk).slice(0,5);if(!Q.length)throw new Error('bad');qi=0;qs=0;showQ()}catch(x){e.textContent=x&&x.code?errText(x):'প্রশ্ন বানানো গেল না। আরেকবার চেষ্টা করো।'}b.disabled=false;b.textContent='কুইজ শুরু করো 🎯'};
+$('#quote').textContent='“'+QUOTES[Math.floor(Date.now()/864e5)%QUOTES.length]+'”';
+var GOAL=30,muted=store.get('mute',false),AC=null,deck=store.get('deck',null),rev=false;
+function goalDraw(){var dx=store.get('dxp',{d:'',v:0}),v=dx.d===today()?dx.v:0;$('#gTxt').textContent='আজকের লক্ষ্য '+bn(Math.min(v,GOAL))+'/'+bn(GOAL)+' XP';$('#gFill').style.width=Math.min(100,v/GOAL*100)+'%'}
+function sfx(k){if(muted)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var seq=k==='ok'?[[660,0],[880,.1]]:k==='no'?[[220,0],[165,.12]]:[[523,0],[659,.1],[784,.2],[1046,.3]];seq.forEach(function(n){var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+n[1];o.type=k==='no'?'sawtooth':'sine';o.frequency.value=n[0];g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(.12,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.2)})}catch(e){}}
+$('#snd').onclick=function(){muted=!muted;store.set('mute',muted);this.textContent=muted?'🔇':'🔊'};$('#snd').textContent=muted?'🔇':'🔊';
+function hs(){var h=store.get('hearts',{d:'',v:5});if(h.d!==today())h={d:today(),v:5};return h}
+function hearts(){return hs().v}
+function heartDraw(){var v=hearts();$('#hearts').textContent=(v?'❤️'.repeat(v):'')+'🤍'.repeat(5-v)+'  আজকের হার্ট'}
+function loseHeart(){var h=hs();h.v=Math.max(0,h.v-1);store.set('hearts',h);heartDraw()}
+function gainHeart(){var h=hs();if(h.v<5){h.v++;store.set('hearts',h);heartDraw();toast('❤️ একটা হার্ট ফিরে পেলে!')}}
+function outHearts(){var box=$('#qBox');box.textContent='';var h=document.createElement('h3');h.textContent='💔 হার্ট শেষ!';var p=document.createElement('p');p.textContent='কোনো সমস্যা নেই। ফ্ল্যাশকার্ডে প্রতি ৫টা কার্ড রিভিউ করলে একটা করে হার্ট ফিরে পাবে, আর কাল ৫টা নতুন হার্ট পাবে।';box.append(h,p)}
+function dayN(){return Math.floor(Date.now()/864e5)}
+function showCard(){var box=$('#cBox');if(!deck){box.hidden=true;return}box.hidden=false;box.textContent='';var due=deck.cards.filter(function(c){return c.due<=dayN()});var h=document.createElement('div');h.className='meta';h.textContent=deck.topic+' · আজ বাকি '+bn(due.length)+'টি';box.appendChild(h);if(!due.length){var p=document.createElement('p');p.textContent='🎉 আজকের সব কার্ড শেষ! কাল আবার এসো। ঠিক সময়ে রিভিউ করলেই মনে থাকে।';box.appendChild(p);return}var c=due[0],f=document.createElement('div');f.className='fcard';f.textContent=rev?c.b:c.f;box.appendChild(f);var row=document.createElement('div');row.style.cssText='display:flex;gap:8px;justify-content:center;margin-top:12px';if(!rev){var s=document.createElement('button');s.className='btn';s.textContent='উত্তর দেখাও';s.onclick=function(){rev=true;showCard()};row.appendChild(s)}else{[['😅 আবার দেখাও',0],['😎 জানি',1]].forEach(function(o){var b=document.createElement('button');b.className=o[1]?'btn':'btn ghost';b.textContent=o[0];b.onclick=function(){grade(c,o[1])};row.appendChild(b)})}box.appendChild(row)}
+function grade(c,ok){var gaps=[0,1,3,7,14];if(ok){c.box=Math.min(4,c.box+1);c.due=dayN()+gaps[c.box];sfx('ok');addXP(3);var n=store.get('cdone',0)+1;store.set('cdone',n);if(n%5===0)gainHeart()}else{c.box=0;c.due=dayN();sfx('no');deck.cards.push(deck.cards.splice(deck.cards.indexOf(c),1)[0])}store.set('deck',deck);rev=false;showCard()}
+$('#cGen').onclick=async function(){var t=$('#cTopic').value.trim(),e=$('#cErr');e.textContent='';if(!t){e.textContent='আগে বিষয়টা লেখো।';return}var sample=await getSample();if(!sample){e.textContent='AI এই ভিউতে চালু নেই। Claude-এ পেজটি খুলে চেষ্টা করো।';return}var b=$('#cGen');b.disabled=true;b.textContent='বানাচ্ছি…';try{var ex=JSON.stringify({c:[{f:'সামনের পিঠ (প্রশ্ন বা শব্দ)',b:'পিছনের পিঠ (উত্তর বা অর্থ)'}]});var j=await sample.json(t+' বিষয়ে একজন বাংলাভাষী শিক্ষার্থীর জন্য ১০টি ফ্ল্যাশকার্ড বানাও। শুধু JSON ফেরত দাও, এই ফরম্যাটে: '+ex+' । সব লেখা বাংলায় (ইংরেজি শব্দ থাকলে বাংলা অর্থসহ)।',{cache:false});var cs=((j&&j.c)||[]).filter(function(x){return x&&x.f&&x.b}).slice(0,12).map(function(x){return{f:String(x.f),b:String(x.b),box:0,due:0}});if(!cs.length)throw new Error('bad');deck={topic:t,cards:cs};store.set('deck',deck);rev=false;showCard()}catch(x){e.textContent=x&&x.code?errText(x):'কার্ড বানানো গেল না। আরেকবার চেষ্টা করো।'}b.disabled=false;b.textContent='কার্ড বানাও 🃏'};
+fDraw();heartDraw();showCard();
+renderPlan();renderProg();
+})();
+</script>
+</body>
+</html>
