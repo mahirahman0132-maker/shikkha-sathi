@@ -25,7 +25,7 @@
 
 1. রিপোজিটরি ক্লোন করো অথবা `index.html` ডাউনলোড করো:
    ```bash
-   git clone https://github.com/তোমার-ইউজারনেম/shikkha-sathi.git
+   git clone https://github.com/mahirahman0132-maker/shikkha-sathi.git
    ```
 2. `index.html` ফাইলটি ব্রাউজারে খোলো।
 
